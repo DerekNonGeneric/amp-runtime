@@ -3,6 +3,8 @@
 build
 .amp-build
 c
+/deploy_key
+/deploy_key.pub
 /dist
 dist.3p
 dist.tools
