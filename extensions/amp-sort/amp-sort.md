@@ -149,7 +149,7 @@ If `value-type` is not specified, the default value of `string` will be used.
 
 **sort-direction** (required)
 
-Sort direction of the `<amp-sort>` component. Options include:
+The direction that elements associated with an interacive region will be sorted once the `sort()` action is triggered. Options include:
 
 - `asc`
 - `desc`
@@ -160,10 +160,15 @@ If `sort-direction` is not specified, the sort-direction most commonly associate
 - `number` defaults to `desc`
 {% endcall %}
 
+**sorted-direction**
+
+The current sort direction of elements associated with an interacive region. Pre-sorted data may be indicated as such with this attribute. Options include:
+- `asc`
+- `desc`
+
 **aria-sort**
 
-Pre-sorted data may be indicated as such with this attribute. Options include:
-
+The current sort direction of elements associated with an interacive region. Pre-sorted data may be indicated as such with this attribute. Options include:
 - `ascending`
 - `descending`
 
