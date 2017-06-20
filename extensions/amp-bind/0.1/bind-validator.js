@@ -243,6 +243,11 @@ function createElementRules_() {
     'AMP-SELECTOR': {
       'selected': null,
     },
+    'AMP-SORT': {
+      'sort-by': null,
+      'sort-direction': null,
+      'sort-type': null,
+    },
     'AMP-STATE': {
       'src': {
         'allowedProtocols': {

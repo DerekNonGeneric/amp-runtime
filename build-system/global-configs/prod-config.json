@@ -1,5 +1,5 @@
 {
-  "allow-doc-opt-in": ["visibility-v3", "amp-animation"],
+  "allow-doc-opt-in": ["visibility-v3", "amp-animation", "amp-sort"],
   "allow-url-opt-in": ["pump-early-frame"],
 
   "canary": 0,
@@ -23,5 +23,6 @@
   "a4a-measure-get-ad-urls": 0,
   "ad-loader-v2": 1,
   "amp-ad-exit": 1,
-  "3p-use-ampcontext": 0
+  "3p-use-ampcontext": 0,
+  "amp-sort": 1
 }

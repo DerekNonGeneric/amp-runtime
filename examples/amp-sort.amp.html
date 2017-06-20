@@ -1,0 +1,190 @@
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <title>amp-sort example</title>
+  <link rel="canonical" href="amps.html">
+  <meta name="amp-experiments-opt-in" content="amp-sort">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+    * {
+      box-sizing: border-box;
+    }
+
+    amp-sort {
+      padding: .3em; 
+    }
+
+    table,
+    thead,
+    tbody {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    table {
+      border-top: solid 1px #999;
+      border-bottom: none;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    th {
+      text-align: center;
+      user-select: none;
+      -webkit-user-select: none;  /* Chrome all / Safari all */
+      -moz-user-select: none;     /* Firefox all */
+      -ms-user-select: none;      /* IE 10+ */
+      user-select: none;          /* Likely future */ 
+    }
+
+    tr {
+      border-bottom: solid 1px #999;
+    }
+
+    thead th {
+      user-select: none;
+    }
+
+    tr {
+      width: 100%;
+      display: flex;
+      flex: 1 1 auto;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: stretch;
+      flex-direction: row;
+    }
+
+    th,
+    td {
+      display: flex;
+      flex: 1 1 0;
+      justify-content: center;
+      align-items: center;
+      border-collapse: collapse;
+      border-left: solid 1px #999;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: solid 1px #999;
+    }
+
+    .priceCol:hover,
+    .isNewCol:hover {
+      cursor: pointer;
+      position: relative;
+      outline: 0;
+    }
+
+    .priceCol:hover::before,
+    .isNewCol:hover::before {
+      content: '';
+      position: absolute;
+      border-color: black;
+      top: 0; right: 0; bottom: 0; left: 0;
+      outline: solid 2px rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+
+    th:hover + th {
+      border-left-color: black;
+    }
+
+    /**
+     * Minimum size to conform to PageSpeed Insights rule "Size Tap Targets
+     * Appropriately".
+     * See:
+     * https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately
+     */
+    th {
+      min-height: 48px;
+      min-width: 48px;
+      background-color: #efefef;
+    }
+
+    .priceCol::after,
+    .isNewCol::after {
+      content: "";
+      display: block;
+      height: 9px;
+      width: 21px;
+      background-size: 21px 9px;
+      background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2021%209%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M14.5%205l-4%204-4-4zM14.5%204l-4-4-4%204z%22%2F%3E%3C%2Fsvg%3E');
+      background-repeat: no-repeat;
+      background-position: center;
+      float: right;
+      
+    }
+
+    /*
+     * amp-sort automatically adds sorted-by sorted-drection attributes to the
+     * component after each sort operation so CSS can target them.
+     */
+    amp-sort[sorted-by='data-price'][sorted-direction='asc'] .priceCol::after,
+    amp-sort[sorted-by='data-is-new'][sorted-direction='asc'] .isNewCol::after {
+      background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2021%204%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M6.5%204l4-4%204%204z%22%2F%3E%3C%2Fsvg%3E');
+      background-size: 21px 4px;
+    }
+
+    amp-sort[sorted-by='data-price'][sorted-direction='desc'] .priceCol::after,
+    amp-sort[sorted-by='data-is-new'][sorted-direction='desc'] .isNewCol::after {
+      background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2021%204%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M14.5%200l-4%204-4-4z%22%2F%3E%3C%2Fsvg%3E');
+      background-size: 21px 4px;
+    }
+  </style>
+
+  <script async custom-element="amp-bind" src="../dist/v0/amp-bind-0.1.max.js"></script>
+  <script async custom-element="amp-sort" src="../dist/v0/amp-sort-0.1.max.js"></script>
+  <script async src="../dist/amp.js"></script>
+</head>
+<body>
+  <amp-sort id="tableSorter" value-type='number'>
+    <table summary="Table showing items, their price, and whether they are new">
+      <thead>
+        <th>Item</th>
+        <th on="tap:tableSorter.sort(sortBy='data-price', sortDirecion='toggle')" aria-sort="ascending" class="priceCol">Price</th>
+        <th on="tap:tableSorter.sort(sortBy='data-is-new', sortDirecion='toggle')" class="isNewCol">Is New</th>
+      </thead>
+      <tbody>
+        <tr data-price="10" data-is-new="0">
+          <th scope="row">Green Shoes</th>
+          <td>$10</td>
+          <td>No</td>
+        </tr>
+        <tr data-price="20" data-is-new="1">
+          <th scope="row">Red Jacket</th>
+          <td>$20</td>
+          <td>Yes</td>
+        </tr>
+        <tr data-price="25" data-is-new="0">
+          <th scope="row">Red Tuque</th>
+          <td>$25</td>
+          <td>No</td>
+        </tr>
+        <tr data-price="27" data-is-new="0">
+          <th scope="row">Green Pants</th>
+          <td>$27</td>
+          <td>No</td>
+        </tr>
+        <tr data-price="30" data-is-new="0">
+          <th scope="row">Blue T-Shirt</th>
+          <td>$30</td>
+          <td>No</td>
+        </tr>
+        <tr data-price="40" data-is-new="1">
+          <th scope="row">Yellow Tie</th>
+          <td>$40</td>
+          <td>Yes</td>
+        </tr>
+      </tbody>
+    </table>
+  </amp-sort>
+</body>
+</html>

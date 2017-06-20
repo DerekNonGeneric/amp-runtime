@@ -234,6 +234,14 @@ export class ActionService {
         this.addInputDetails_(event);
         this.trigger(element, name, event, trust);
       });
+    } else if (name == 'submit' || name == 'change') {
+      this.root_.addEventListener(name, event => {
+        if (name == 'change') {
+          event.detail = {checked: event.target.checked};
+        }
+
+        this.trigger(dev().assertElement(event.target), name, event);
+      });
     } else if (name == 'input-debounced') {
       const debouncedInput = debounce(this.ampdoc.win, event => {
         const target = dev().assertElement(event.target);

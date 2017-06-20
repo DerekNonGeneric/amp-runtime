@@ -286,6 +286,13 @@ const EXPERIMENTS = [
         'amp-ad-network-doubleclick-impl/' +
         'amp-ad-network-doubleclick-impl-internal.md',
   },
+  {
+    id: 'amp-sort',
+    name: 'AMP Sort',
+    cleanupIssue: 'https://github.com/ampproject/amphtml/issues/8691',
+    spec: 'https://github.com/ampproject/amphtml/blob/master/extensions/' +
+        'amp-sort/amp-sort.md',
+  },
 ];
 
 if (getMode().localDev) {
