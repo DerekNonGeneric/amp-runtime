@@ -75,7 +75,7 @@ In this example, we sort a list, where a button is used to trigger the sorting o
 <div>
 <amp-iframe height="304"
             layout="fixed-height"
-            sandbox="allow-scripts allow-forms"
+            sandbox="allow-same-origin allow-scripts allow-forms"
             resizable
             src="https://derekcecillewis.github.io/amp-samples/samples/ampsort.basic-list.embed.html">
   <div overflow tabindex="0" role="button" aria-label="Show more">Show full code</div>
@@ -91,7 +91,7 @@ In this example, we sort a table, where the table's header is used to trigger th
 <div>
 <amp-iframe height="627"
             layout="fixed-height"
-            sandbox="allow-scripts allow-forms"
+            sandbox="allow-same-origin allow-scripts allow-forms"
             resizable
             src="https://derekcecillewis.github.io/amp-samples/samples/ampsort.basic-table.embed.html">
   <div overflow tabindex="0" role="button" aria-label="Show more">Show full code</div>
@@ -107,12 +107,11 @@ To see more demos of `amp-sort`, visit [AMP By Example](https://ampbyexample.com
 
 **sort-by** (required)
 
-The name of the attribute on descendants which its value is used for sorting comparison.
+The name of the descendant element's attribute whose `value` attribute will be used for sorting comparison.
 
 **value-type**
 
 Specifices the data-type of the values indicated by the `sort-by` attribute. Options include:
-
 - `string`
 - `number`
 
@@ -120,33 +119,37 @@ Specifices the data-type of the values indicated by the `sort-by` attribute. Opt
 If `value-type` is not specified, the default value of `string` will be used.
 {% endcall %}
 
-**sort-direction** (required)
+**sort-direction**
 
-The direction that elements associated with an interacive region will be sorted once the `sort()` action is triggered. Options include:
-
-- `asc`
-- `desc`
+The direction that descendant elements associated with a `sort-by` value will be sorted in once the `sort()` action is triggered. Options include:
+- `toggle`: opposite of current `sorted-direction`
+- `asc`: ascending
+- `desc`: descending
 
 {% call callout('Note', type='note') %}
-If `sort-direction` is not specified, the sort-direction most commonly associated with the data-type of the values will be used. They are as follow:
+If `sort-direction` is not specified, the default sort-direction most commonly associated with data-type specified by `value-type` will be used. By using `toggle` on its own, the default sort-direction will be used the *first time* the `sort()` action is triggered. They are as follow:
 - `string` defaults to `asc`
 - `number` defaults to `desc`
 {% endcall %}
 
+`toggle` may be used in conjunction with `asc` or `desc` to specify the direction that descendant elements associated with a `sort-by` value will be sorted in the *first time* the `sort()` action is triggered while still maintaining the behavior of `toggle` each subsequent time the `sort()` action is triggered. This is useful for cases in which the data is *not* pre-sorted, hence the opposite direction of the current `sorted-direction` cannot be used, and the default sort-direction most commonly associated with the data-type specified by `value-type` is not desired. Options include:
+- `toggle|asc`: opposite of current `sorted-direction` or ascending
+- `toggle|desc`: opposite of current `sorted-direction` or descending
+
 **sorted-direction**
 
-The current sort direction of elements associated with an interacive region. Pre-sorted data may be indicated as such with this attribute. Options include:
-- `asc`
-- `desc`
+The current sort direction of descendant elements associated with a `sort-by` value. Pre-sorted data may be indicated as such with this attribute. Options include:
+- `asc`: ascending
+- `desc`: descending
 
 **aria-sort**
 
-The current sort direction of elements associated with an interacive region. Pre-sorted data may be indicated as such with this attribute. Options include:
+The current sort direction of descendant elements associated with a `sort-by` value. Pre-sorted data may be indicated as such with this attribute. Options include:
 - `ascending`
 - `descending`
 
 {% call callout('Note', type='note') %}
-`aria-sort` is an accessibility-specific attribute to be used by assistive technologies such as screen readers. If data is not pre-sorted, it may be ommitted as it will be applied once the the `sort()` action is called.
+`aria-sort` is an accessibility-specific attribute to be used by assistive technologies such as screen readers. If data is not pre-sorted, it should be ommitted as it will be applied with the correct value once the the `sort()` action is called.
 {% endcall %}
 
 ## Actions
