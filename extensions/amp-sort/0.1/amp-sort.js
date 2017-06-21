@@ -24,7 +24,7 @@ import {toArray} from '../../../src/types';
 const EXPERIMENT = 'amp-sort';
 
 /** @const */
-const TAG = 'amp-sort';
+const TAG_ = 'amp-sort';
 
 export class AmpSort extends AMP.BaseElement {
   /** @param {!AmpElement} element */
@@ -41,7 +41,7 @@ export class AmpSort extends AMP.BaseElement {
   /** @override */
   buildCallback() {
     AMP.toggleExperiment(EXPERIMENT, true); // for dev
-    user().assert(isExperimentOn(this.win, TAG),
+    user().assert(isExperimentOn(this.win, TAG_),
         `Experiment ${EXPERIMENT} disabled`);
 
     this.registerAction('sort', invocation => {
@@ -51,10 +51,18 @@ export class AmpSort extends AMP.BaseElement {
       if (args) {
         if (args['sortBy'] !== undefined) {
           this.element.setAttribute('sort-by', args['sortBy']);
+        } else {
+          user().error(TAG_,
+              '<amp-sort> elements must have a `sort-by` attribute.',
+              this.element);
         }
 
         if (args['sortDirecion'] !== undefined) {
           this.element.setAttribute('sort-direction', args['sortDirecion']);
+        }
+
+        if (args['sortedDirecion'] !== undefined) {
+          this.element.setAttribute('sorted-direction', args['sortDirecion']);
         }
 
         if (args['valueType'] !== undefined) {
@@ -73,36 +81,77 @@ export class AmpSort extends AMP.BaseElement {
     }
   }
 
+  getDefaultSortDir_(sortType) {
+    return sortType == 'string' ? 'asc' : 'desc';
+  }
+
   sort_(cellIndex) {
     const sortBy = this.element.getAttribute('sort-by');
-    let sortDir = this.element.getAttribute('sort-direction') || 'asc';
     const sortType = this.element.getAttribute('value-type') || 'string';
+    const sortedDir = this.element.getAttribute('sorted-direction');
+    this.prevSortDir_ = sortedDir || null;
+    let sortDir = this.element.getAttribute('sort-direction') ||
+        this.getDefaultSortDir_(sortType);
+
+    if (this.prevSortDir_ == null && sortDir == 'toggle') {
+      sortDir = this.getDefaultSortDir_(sortType);
+    }
+
+    if (sortDir == 'toggle|asc') { // probably faster than tokenizing or regex
+      if (this.prevSortDir_ == null) {
+        sortDir = 'asc';
+      } else {
+        sortDir = 'toggle';
+      }
+    } else if (sortDir == 'toggle|desc') {
+      if (this.prevSortDir_ == null) {
+        sortDir = 'desc';
+      } else {
+        sortDir = 'toggle';
+      }
+    }
+
     if (sortDir == 'toggle') {
       sortDir = this.prevSortDir_ == 'asc' ? 'desc' : 'asc';
     }
+
+    if (sortDir == false) {
+      user().error(TAG_,
+          'Invalid value for `sort-direction` attribute.',
+          this.element);
+    }
+
     const ariaSort = sortDir == 'asc' ? 'ascending' : 'descending';
     const elements = toArray(this.element.querySelectorAll(`[${sortBy}]`));
     const comparer = this.getComparer_(sortBy, sortDir, sortType);
     const sortedElements = elements.sort(comparer);
 
     sortedElements.forEach(e => {
-      // A11Y: make parent an aria live region if it is not already.
+      // A11Y: make parent an aria live region if it is not already
       if (!e.parentNode.hasAttribute('aria-live')) {
         e.parentNode.setAttribute('aria-live', 'polite');
       }
       // A11Y: if element is a TR, find the corresponding TH and set aria-sort
-      //       on it.
+      // and remove aria-sort from other THs
+      // (https://www.w3.org/TR/wai-aria/states_and_properties#aria-sort)
       if (e.nodeName == 'TR') {
-        e.closest('table').querySelector('thead').querySelector('tr')
-            .children[cellIndex].setAttribute('aria-sort', ariaSort);
+        const tableHeaders = e.closest('table').querySelector('thead')
+          .querySelector('tr').children;
+
+        for (let i = tableHeaders.length; i--;) {
+          tableHeaders[i].removeAttribute('aria-sort');
+        }
+
+        tableHeaders[cellIndex].setAttribute('aria-sort', ariaSort);
       }
+
       e.parentNode.appendChild(e);
     });
 
-    this.prevSortDir_ = sortDir;
     // set the following attributes on the parent amp-sort so they can be
     // targeted in CSS
     this.element.setAttribute('sorted', '');
+    this.element.setAttribute('value-type', sortType);
     this.element.setAttribute('sorted-by', sortBy);
     this.element.setAttribute('sorted-direction', sortDir);
   }
@@ -121,10 +170,12 @@ export class AmpSort extends AMP.BaseElement {
 
       if (sortType == 'string') {
         return v1.localeCompare(v2);
-      }
-
-      if (sortType == 'number') {
+      } else if (sortType == 'number') {
         return Number(v1) - Number(v2);
+      } else {
+        user().error(TAG_,
+            'Invalid value for `value-type` attribute.',
+            this.element);
       }
     };
   }

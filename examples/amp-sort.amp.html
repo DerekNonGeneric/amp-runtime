@@ -139,23 +139,18 @@
     <table>
       <thead>
         <th role="rowheader" tabindex="0">Item</th>
-        <th role="rowheader" tabindex="0" on="tap:tableSorter.sort(sortBy='data-price', sortDirecion='toggle')" aria-sort="ascending" class="priceCol">Price</th>
+        <th role="rowheader" tabindex="0" on="tap:tableSorter.sort(sortBy='data-price', sortDirecion='toggle|asc')" aria-sort="ascending" class="priceCol">Price</th>
         <th role="rowheader" tabindex="0" on="tap:tableSorter.sort(sortBy='data-is-new', sortDirecion='toggle')" class="isNewCol">Is New</th>
       </thead>
       <tbody>
-        <tr data-price="10" data-is-new="0">
-          <th role="rowheader" tabindex="0" scope="row">Green Shoes</th>
-          <td role="gridcell">$10</td>
-          <td role="gridcell">No</td>
-        </tr>
-        <tr data-price="20" data-is-new="1">
-          <th role="rowheader" tabindex="0" scope="row">Red Jacket</th>
-          <td role="gridcell">$20</td>
+        <tr data-price="40" data-is-new="1">
+          <th role="rowheader" tabindex="0" scope="row">Yellow Tie</th>
+          <td role="gridcell">$40</td>
           <td role="gridcell">Yes</td>
         </tr>
-        <tr data-price="25" data-is-new="0">
-          <th role="rowheader" tabindex="0" scope="row">Red Tuque</th>
-          <td role="gridcell">$25</td>
+        <tr data-price="30" data-is-new="0">
+          <th role="rowheader" tabindex="0" scope="row">Blue T-Shirt</th>
+          <td role="gridcell">$30</td>
           <td role="gridcell">No</td>
         </tr>
         <tr data-price="27" data-is-new="0">
@@ -163,15 +158,20 @@
           <td role="gridcell">$27</td>
           <td role="gridcell">No</td>
         </tr>
-        <tr data-price="30" data-is-new="0">
-          <th role="rowheader" tabindex="0" scope="row">Blue T-Shirt</th>
-          <td role="gridcell">$30</td>
+        <tr data-price="25" data-is-new="0">
+          <th role="rowheader" tabindex="0" scope="row">Red Tuque</th>
+          <td role="gridcell">$25</td>
           <td role="gridcell">No</td>
         </tr>
-        <tr data-price="40" data-is-new="1">
-          <th role="rowheader" tabindex="0" scope="row">Yellow Tie</th>
-          <td role="gridcell">$40</td>
+        <tr data-price="20" data-is-new="1">
+          <th role="rowheader" tabindex="0" scope="row">Red Jacket</th>
+          <td role="gridcell">$20</td>
           <td role="gridcell">Yes</td>
+        </tr>
+        <tr data-price="10" data-is-new="0">
+          <th role="rowheader" tabindex="0" scope="row">Green Shoes</th>
+          <td role="gridcell">$10</td>
+          <td role="gridcell">No</td>
         </tr>
       </tbody>
     </table>
