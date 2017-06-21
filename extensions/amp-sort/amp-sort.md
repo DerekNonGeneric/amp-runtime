@@ -72,25 +72,14 @@ The `amp-sort` extension enables DOM nodes to be rearranged by comparing values 
 In this example, we sort a list, where a button is used to trigger the sorting of its items.
 
 <!-- embedded example - displays in ampproject.org -->
-```html
-<amp-sort id="priceSorter"
-  sort-by="data-price"
-  sort-direction="desc"
-  value-type="number">
-  <button on="tap:priceSorter.sort();">Sort by price - High to Low</button>
-  <ul>
-    <li data-price="20">Green Hoodie - $20</li>
-    <li data-price="30">Red Shirt - $30</li>
-    <li data-price="10">Blue T-Shirt - $10</li>
-  </ul>
-</amp-sort>
-```
 <div>
-<amp-iframe height="89"
-            width="200"
-            layout="responsive"
-            sandbox="allow-scripts"
-            src="https://derekcecillewis.github.io/amp-samples/samples/ampsort.basic-list.preview.html">
+<amp-iframe height="304"
+            layout="fixed-height"
+            sandbox="allow-scripts allow-forms"
+            resizable
+            src="https://derekcecillewis.github.io/amp-samples/samples/ampsort.basic-list.embed.html">
+  <div overflow tabindex="0" role="button" aria-label="Show more">Show full code</div>
+  <div placeholder></div> 
 </amp-iframe>
 </div>
 
@@ -99,30 +88,14 @@ In this example, we sort a list, where a button is used to trigger the sorting o
 In this example, we sort a table, where the table's header is used to trigger the sorting of its rows. Also, we opted to update the sorting icons to reflect the direction of the sort.
 
 <!-- embedded example - displays in ampproject.org -->
-```html
-<amp-sort id="tableSorter"
-          value-type='number'>
-  <table summary="Table showing prices">
-    <thead>
-      <th on="tap:tableSorter.sort(sortBy='data-price', sortDirecion='toggle')"
-          aria-sort="ascending"
-          class="priceCol">Price</th>
-    </thead>
-    <tbody>
-      <tr data-price="25"><td>$25</td></tr>
-      <tr data-price="50"><td>$50</td></tr>
-      <tr data-price="75"><td>$75</td></tr>
-      <tr data-price="100"><td>$100</td></tr>
-    </tbody>
-  </table>
-</amp-sort>
-```
 <div>
-<amp-iframe height="132"
-            width="200"
-            layout="responsive"
-            sandbox="allow-scripts"
-            src="https://derekcecillewis.github.io/amp-samples/samples/ampsort.basic-table.preview.html">
+<amp-iframe height="627"
+            layout="fixed-height"
+            sandbox="allow-scripts allow-forms"
+            resizable
+            src="https://derekcecillewis.github.io/amp-samples/samples/ampsort.basic-table.embed.html">
+  <div overflow tabindex="0" role="button" aria-label="Show more">Show full code</div>
+  <div placeholder></div> 
 </amp-iframe>
 </div>
 
