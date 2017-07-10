@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"https://raw.githubusercontent.com/ampproject/amphtml/123456789/build/cc/_src_service-worker_kill.js",
+"lineCount":1,
+"mappings":"A,YAkBAA,IAAAC,iBAAA,CAAsB,SAAtB,CAAiC,QAAQ,CAACC,CAAD,CAAQ,CAO/CA,CAAAC,UAAA,CACIH,IADqDI,YAAA,EAAzD,CAP+C,CAAjD,CAWAJ,KAAAC,iBAAA,CAAsB,UAAtB,CAAkC,QAAQ,CAACC,CAAD,CAAQ,CAIhD,IAAMG,EAAUC,OAAAC,MAAA,EAAAC,KAAA,CAAqB,QAAA,EAAM,CAEzC,MAAOC,OAAAC,OAAA,CAAc,QAAd,CAFkC,CAA3B,CAAAF,KAAA,CAGR,QAAA,EAAM,CACZ,MAAO,KAAIG,OAAJ,CAAY,QAAA,CAACC,CAAD,CAAUC,CAAV,CAAqB,CAEtC,IAAMC,EAAUC,SAAAC,eAAA,CAAyB,QAAzB,CAChBF,EAAAG,UAAA,CAAoBL,CACpBE,EAAAI,QAAA,CAAkBL,CAJoB,CAAjC,CADK,CAHE,CAYhBX,EAAAC,UAAA,CAAgBE,CAAhB,CAhBgD,CAAlD;",
+"sources":["https://raw.githubusercontent.com/ampproject/amphtml/123456789/src/service-worker/kill.js"],
+"names":["self","addEventListener","event","waitUntil","skipWaiting","killing","clients","claim","then","caches","delete","Promise","resolve","reject","request","indexedDB","deleteDatabase","onsuccess","onerror"]
+}
