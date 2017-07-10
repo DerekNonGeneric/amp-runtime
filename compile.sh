@@ -1,9 +1,9 @@
 #!/bin/bash
-# export AMP_TESTING_HOST="derekcecillewis.github.io"
+# export AMP_TESTING_HOST="dereklewis.github.io"
 # gulp dist --fortesting --version 123456789
 
 gulp build --css-only
-gulp dist --version 123456789 --type prod --hostname derekcecillewis.github.io --hostname3p derekcecillewis.github.io
+gulp dist --version 123456789 --type prod --hostname dereklewis.github.io --hostname3p dereklewis.github.io
 mkdir -p amphtml/3p/
 # this would be the files hosted on www.ampproject.org/
 cp -R dist/* amphtml/

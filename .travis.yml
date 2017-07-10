@@ -29,7 +29,7 @@ script: bash ./deploy.sh
 env:
   global:
   - ENCRYPTION_LABEL: "7257f80fb584"
-  - COMMIT_AUTHOR_EMAIL: "derekcecillewis@gmail.com"
+  - COMMIT_AUTHOR_EMAIL: "d@dereklew.is"
 cache:
   yarn: true
   directories:
